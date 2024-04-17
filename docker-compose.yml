@@ -3,7 +3,7 @@ version: "3"
 services:
   namenode:
     build: ./namenode
-    image: asergiu/ubb:hadoop-namenode
+    image: namenode-local
     container_name: namenode
     restart: always
     ports:
@@ -27,30 +27,30 @@ services:
       SERVICE_PRECONDITION: "namenode:9870 namenode:9000 resourcemanager:8088"
     env_file:
       - ./hadoop.env
-  
-  # datanode2:
-  #   build: ./datanode
-  #   image: asergiu/ubb:hadoop-datanode
-  #   container_name: datanode2
-  #   restart: always
-  #   volumes:
-  #     - hadoop_datanode2:/hadoop-data/dfs/data
-  #   environment:
-  #     SERVICE_PRECONDITION: "namenode:9870 namenode:9000 resourcemanager:8088"
-  #   env_file:
-  #     - ./hadoop.env
-  
-  # datanode3:
-  #   build: ./datanode
-  #   image: asergiu/ubb:hadoop-datanode
-  #   container_name: datanode3
-  #   restart: always
-  #   volumes:
-  #     - hadoop_datanode3:/hadoop-data/dfs/data
-  #   environment:
-  #     SERVICE_PRECONDITION: "namenode:9870 namenode:9000 resourcemanager:8088"
-  #   env_file:
-  #     - ./hadoop.env
+
+  datanode2:
+    build: ./datanode
+    image: asergiu/ubb:hadoop-datanode
+    container_name: datanode2
+    restart: always
+    volumes:
+      - hadoop_datanode2:/hadoop-data/dfs/data
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870 namenode:9000 resourcemanager:8088"
+    env_file:
+      - ./hadoop.env
+
+  datanode3:
+    build: ./datanode
+    image: asergiu/ubb:hadoop-datanode
+    container_name: datanode3
+    restart: always
+    volumes:
+      - hadoop_datanode3:/hadoop-data/dfs/data
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870 namenode:9000 resourcemanager:8088"
+    env_file:
+      - ./hadoop.env
 
   resourcemanager:
     build: ./resourcemanager
@@ -71,7 +71,7 @@ services:
       SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
     env_file:
       - ./hadoop.env
-  
+
   historyserver:
     build: ./historyserver
     image: asergiu/ubb:hadoop-historyserver
@@ -83,7 +83,7 @@ services:
       - hadoop_historyserver:/hadoop-data/yarn/timeline
     env_file:
       - ./hadoop.env
-  
+
 volumes:
   hadoop_namenode:
   hadoop_datanode1:

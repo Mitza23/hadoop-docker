@@ -1,0 +1,10 @@
+* text=auto !eol
+local/*.sh text eol=lf
+local/*.properties text eol=lf
+local/*.json text eol=lf
+local/*.xml text eol=lf
+Dockerfile text eol=lf
+docker-compose.yml text eol=lf
+k8s.yml text eol=lf
+*.java diff=java
+*.*html diff=html

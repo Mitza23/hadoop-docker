@@ -13,4 +13,6 @@ RUN chmod a+x /run.sh
 VOLUME /hadoop-data/dfs/name
 EXPOSE 9870
 
+RUN mkdir /text_data
+COPY ./text_data /text_data
 CMD ["/run.sh"]
