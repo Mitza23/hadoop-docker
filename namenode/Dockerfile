@@ -11,8 +11,12 @@ ADD run.sh /run.sh
 RUN chmod a+x /run.sh
 
 VOLUME /hadoop-data/dfs/name
+
 EXPOSE 9870
 
 RUN mkdir /text_data
+RUN mkdir /jar
 COPY ./text_data /text_data
+COPY ./invertedIndex-1.0-SNAPSHOT.jar /jar
+
 CMD ["/run.sh"]

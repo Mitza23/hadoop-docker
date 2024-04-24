@@ -1,0 +1,1 @@
+hadoop jar /jar/invertedIndex-1.0-SNAPSHOT.jar ubb.discipolii.lui.dadi.WordCount /text_data /output
