@@ -1,6 +1,13 @@
 version: "3"
 
 services:
+  # Define the base image
+  # This will not create a service but will serve as a base for other images
+  base_image:
+    build: ./base
+    # Specify the Dockerfile for the base image
+    image: hadoop-base-local
+
   namenode:
     build: ./namenode
     image: hadoop-namenode-local
