@@ -43,6 +43,9 @@ ENV MULTIHOMED_NETWORK=1
 ENV USER=root
 ENV PATH $HADOOP_HOME/bin/:$PATH
 
+RUN mkdir /etc/hadoop/conf
+COPY ./log4j.properties /etc/hadoop/conf/log4j.properties
+
 ADD entrypoint.sh /entrypoint.sh
 
 RUN chmod a+x /entrypoint.sh

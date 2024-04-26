@@ -1,4 +1,4 @@
-FROM asergiu/ubb:hadoop-base
+FROM hadoop-base-local
 
 MAINTAINER Adrian DARABANT <dadi@cs.ubbcluj.ro>
 

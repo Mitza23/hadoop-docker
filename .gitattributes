@@ -1,5 +1,6 @@
 * text=auto !eol
 local/*.sh text eol=lf
+*.sh text eol=lf
 local/*.properties text eol=lf
 local/*.json text eol=lf
 local/*.xml text eol=lf

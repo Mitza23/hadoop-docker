@@ -3,7 +3,7 @@ version: "3"
 services:
   namenode:
     build: ./namenode
-    image: namenode-local
+    image: hadoop-namenode-local
     container_name: namenode
     restart: always
     ports:
@@ -21,7 +21,7 @@ services:
 
   datanode1:
     build: ./datanode
-    image: asergiu/ubb:hadoop-datanode
+    image: hadoop-datanode-local
     container_name: datanode1
     restart: always
     ports:
@@ -33,37 +33,37 @@ services:
     env_file:
       - ./hadoop.env
 
-  datanode2:
-    build: ./datanode
-    image: asergiu/ubb:hadoop-datanode
-    container_name: datanode2
-    restart: always
-    ports:
-      - 9865:9864
-    volumes:
-      - hadoop_datanode2:/hadoop-data/dfs/data
-    environment:
-      SERVICE_PRECONDITION: "namenode:9870 namenode:9000 resourcemanager:8088"
-    env_file:
-      - ./hadoop.env
-
-  datanode3:
-    build: ./datanode
-    image: asergiu/ubb:hadoop-datanode
-    container_name: datanode3
-    restart: always
-    ports:
-      - 9866:9864
-    volumes:
-      - hadoop_datanode3:/hadoop-data/dfs/data
-    environment:
-      SERVICE_PRECONDITION: "namenode:9870 namenode:9000 resourcemanager:8088"
-    env_file:
-      - ./hadoop.env
+  #  datanode2:
+  #    build: ./datanode
+  #    image: asergiu/ubb:hadoop-datanode
+  #    container_name: datanode2
+  #    restart: always
+  #    ports:
+  #      - 9865:9864
+  #    volumes:
+  #      - hadoop_datanode2:/hadoop-data/dfs/data
+  #    environment:
+  #      SERVICE_PRECONDITION: "namenode:9870 namenode:9000 resourcemanager:8088"
+  #    env_file:
+  #      - ./hadoop.env
+  #
+  #  datanode3:
+  #    build: ./datanode
+  #    image: asergiu/ubb:hadoop-datanode
+  #    container_name: datanode3
+  #    restart: always
+  #    ports:
+  #      - 9866:9864
+  #    volumes:
+  #      - hadoop_datanode3:/hadoop-data/dfs/data
+  #    environment:
+  #      SERVICE_PRECONDITION: "namenode:9870 namenode:9000 resourcemanager:8088"
+  #    env_file:
+  #      - ./hadoop.env
 
   resourcemanager:
     build: ./resourcemanager
-    image: asergiu/ubb:hadoop-resourcemanager
+    image: hadoop-resourcemanager-local
     container_name: resourcemanager
     restart: always
     ports:
@@ -75,27 +75,27 @@ services:
 
   nodemanager:
     build: ./nodemanager
-    image: asergiu/ubb:hadoop-nodemanager
+    image: hadoop-nodemanager-local
     container_name: nodemanager
     restart: always
     ports:
       - 8042:8042
     environment:
-#      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 datanode2:9865 datanode2:9866 resourcemanager:8088"
-      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 resourcemanager:8088"
+      #      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 datanode2:9865 datanode2:9866 resourcemanager:8088"
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 resourcemanager:8088"
     env_file:
       - ./hadoop.env
 
   historyserver:
     build: ./historyserver
-    image: asergiu/ubb:hadoop-historyserver
+    image: hadoop-historyserver-local
     container_name: historyserver
     restart: always
     ports:
       - 8188:8188
     environment:
-#      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 datanode2:9865 datanode3:9866 resourcemanager:8088"
-      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 resourcemanager:8088"
+      #      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 datanode2:9865 datanode3:9866 resourcemanager:8088"
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode1:9864 resourcemanager:8088"
     volumes:
       - hadoop_historyserver:/hadoop-data/yarn/timeline
     env_file:
@@ -104,6 +104,6 @@ services:
 volumes:
   hadoop_namenode:
   hadoop_datanode1:
-  hadoop_datanode2:
-  hadoop_datanode3:
+  #  hadoop_datanode2:
+  #  hadoop_datanode3:
   hadoop_historyserver:
