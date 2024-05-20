@@ -1,0 +1,9 @@
+# Inverted index:
+## Task:
+Write a Hadoop application in Java that computes an inverted index on a series of text documents. n order to build the inversed index you need to account for a stop word list (words that will not be indexed by the application. Ex: and, or, how, so, etc). These stop words will be read by the application from a text file (stopwords.txt). An inversed index contains for each distinct unique word, a list of files containing the given word with its location within the file (line number in our case).
+
+## Implementation
+The application should be composed out of 2 jobs:
+1. In the Mapper: read the chunks available on a node line by line and make records of the form <fileName, [offsetOfTheLineRead, lineRead]> where lineRead represents the line read from the text file with the name: fileName at the offset: offsetOfTheLineRead and removing any occurrence of stopwords present in stopwords.txt that will be stored in a distributed cache that Hadoop offers. In the Reducer: having all the records with the same key, meaning from the same file: arrange in ascending order the records by their offsetOfTheLineRead and map these offsets to the actual line number, starting from 1. This produces records of the type <lineNumber, [fileName, lineRead]>
+
+2. In the Mapper: take the previously generated records of the form <lineNumber, [fileName, lineRead]> where lineRead is a line of words separated by space and generate records for each word from lineRead of the form <word, [fileName, lineNumber]>. In the Reducer: having all the records with the same key, meaning for the same word, aggregate the values to produce a single record of the type <word, [(fileName1, lineNumber1,...lineNumberN), (fileName2, lineNumber1,...lineNumberM),...]> for each distinct key that the reducers receive. 
