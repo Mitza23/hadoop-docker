@@ -2,9 +2,9 @@ package ubb.discipolii.lui.dadi;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
+
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Job1Reducer extends Reducer<Text, Text, Text, Text> {
@@ -31,7 +31,7 @@ public class Job1Reducer extends Reducer<Text, Text, Text, Text> {
             String[] parts = line.split(",", 2);
             lineNumberKey.set(String.valueOf(lineNumber));
             fileNameLineValue.set(key.toString() + "," + parts[1]);
-            //record is of the form <lineNumber, "fileName,filteredLine">
+            //record is of the form <lineNumber, "fileName,filteredLine"> where the key is separated by a tab character from the value
             context.write(lineNumberKey, fileNameLineValue);
             lineNumber++;
         }

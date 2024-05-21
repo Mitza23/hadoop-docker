@@ -2,16 +2,17 @@ package ubb.discipolii.lui.dadi;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
+import org.apache.hadoop.filecache.DistributedCache;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.KeyValueTextInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
-import org.apache.hadoop.filecache.DistributedCache;
 
 public class InvertedIndex extends Configured implements Tool {
     public static void main(String[] args) throws Exception {
@@ -63,7 +64,7 @@ public class InvertedIndex extends Configured implements Tool {
         job2.setOutputKeyClass(Text.class);
         job2.setOutputValueClass(Text.class);
 
-        job2.setInputFormatClass(TextInputFormat.class);
+        job2.setInputFormatClass(KeyValueTextInputFormat.class);
         job2.setOutputFormatClass(TextOutputFormat.class);
 
         FileInputFormat.addInputPath(job2, tempOutputPath);
