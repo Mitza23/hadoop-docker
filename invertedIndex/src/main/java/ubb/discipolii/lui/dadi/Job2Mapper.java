@@ -11,7 +11,7 @@ public class Job2Mapper extends Mapper<LongWritable, Text, Text, Text> {
     private Text fileNameLineNumberValue = new Text();
 
     @Override
-    protected void map(Text key, Text value, Context context) throws IOException, InterruptedException {
+    protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         //record is of the form <lineNumber, "fileName,filteredLine">
         String[] parts = value.toString().split(",", 3);
         String lineNumber = parts[0];
