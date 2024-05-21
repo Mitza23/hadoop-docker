@@ -1,11 +1,12 @@
 package ubb.discipolii.lui.dadi;
 
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 import java.io.IOException;
 
-public class Job2Mapper extends Mapper<Text, Text, Text, Text> {
+public class Job2Mapper extends Mapper<LongWritable, Text, Text, Text> {
     private Text wordKey = new Text();
     private Text fileNameLineNumberValue = new Text();
 
