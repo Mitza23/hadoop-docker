@@ -12,10 +12,10 @@ public class Job2Mapper extends Mapper<Text, Text, Text, Text> {
     @Override
     protected void map(Text key, Text value, Context context) throws IOException, InterruptedException {
         //record is of the form <lineNumber, "fileName,filteredLine">
-        String[] parts = value.toString().split(",", 2);
-        long lineNumber = Long.parseLong(key.toString());
-        String fileName = parts[0];
-        String lineRead = parts[1];
+        String[] parts = value.toString().split(",", 3);
+        String lineNumber = parts[0];
+        String fileName = parts[1];
+        String lineRead = parts[2];
 
         String[] words = lineRead.split("\\s+");
         for (String word : words) {
